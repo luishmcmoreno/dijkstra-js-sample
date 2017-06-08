@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Simple sample of a Dijkstra Algorithm JS implementation </title>
+  <meta charset="UTF-8">
+  <title>Simple sample of a Dijkstra Algorithm JS implementation </title>
 </head>
 <body>
-	<script>
-		(function() {
+  <script>
+    (function() {
 
-			var NO_EDGE = -1;
-			var NO_NODE = -2;
+      var NO_EDGE = -1;
+      var NO_NODE = -2;
 
-			/* Adjacency matrix  */
-			var adjMat = [
-				[0, 1,  4, NO_EDGE, 28, NO_EDGE], // Node A
-				[1, 0, NO_EDGE, 10, NO_EDGE, 20], // Node B
-				[4, NO_EDGE, 0, 8, NO_EDGE, NO_EDGE], // Node C
-				[NO_EDGE, 10, 8, 0, 9, 3], // Node D
-				[28, NO_EDGE, NO_EDGE, 9, 0, 2], // Node E
-				[NO_EDGE, 20, NO_EDGE, 3,  2, 0] // Node F
-			];
-
-
-			/* Getting the smaller node whose wasn't visited */
-			function getSmallerNode(adjMat, estimate, visited) {
-				var smallerValue = Infinity;
-				var smallerNode;
-				for (var i = 0; i < visited.length; i++) {
-					/* already visited */
-					if (visited[i]) {
-						continue;
-					}
-					/* Is smaller than current smaller? */
-					if (smallerValue > estimate[i]) {
-						smallerValue = estimate[i];
-						smallerNode = i;
-					}
-				}
-				/* There isn't an unvisited node */
-				if (smallerNode === undefined) {
-					return NO_NODE;
-				}
-				return smallerNode;
-			}
-
-			function Dijkstra(adjMat, startNode, endNode) {
-				var pred = [];
-				var estimate = [];
-				var visited = [];
-				var currentNode = startNode;
-
-				/* Setting the initial values */
-				for (var i = 0; i < adjMat.length; i++) {
-					visited[i] = false;
-					estimate[i] = Infinity;
-				}
-				estimate[startNode] = 0;
-				pred[startNode] = 0;
+      /* Adjacency matrix  */
+      var adjMat = [
+        [0, 1,  4, NO_EDGE, 28, NO_EDGE], // Node A
+        [1, 0, NO_EDGE, 10, NO_EDGE, 20], // Node B
+        [4, NO_EDGE, 0, 8, NO_EDGE, NO_EDGE], // Node C
+        [NO_EDGE, 10, 8, 0, 9, 3], // Node D
+        [28, NO_EDGE, NO_EDGE, 9, 0, 2], // Node E
+        [NO_EDGE, 20, NO_EDGE, 3,  2, 0] // Node F
+      ];
 
 
-				/* Dijkstra algorithm */
-				while (currentNode !== NO_NODE) {
-					if (currentNode === endNode) {
-						break;
-					}
-					visited[currentNode] = true;
-					for (var i = 0; i < adjMat.length; i++) {
-						if (currentNode === i || adjMat[currentNode][i] === NO_EDGE) {
-							continue;
-						}
-						if (estimate[i] > estimate[currentNode] + adjMat[currentNode][i]) {
-							estimate[i] = estimate[currentNode] + adjMat[currentNode][i];
-							pred[i] = currentNode;
-						}
-					}
-					currentNode = getSmallerNode(adjMat, estimate, visited);
-				}
-				console.log(estimate);
-				console.log(pred);
-			}
+      /* Getting the smaller node whose wasn't visited */
+      function getSmallerNode(adjMat, estimate, visited) {
+        var smallerValue = Infinity;
+        var smallerNode;
+        for (var i = 0; i < visited.length; i++) {
+          /* already visited */
+          if (visited[i]) {
+            continue;
+          }
+          /* Is smaller than current smaller? */
+          if (smallerValue > estimate[i]) {
+            smallerValue = estimate[i];
+            smallerNode = i;
+          }
+        }
+        /* There isn't an unvisited node */
+        if (smallerNode === undefined) {
+          return NO_NODE;
+        }
+        return smallerNode;
+      }
 
-			/* Calling the algorithm */
-			Dijkstra(adjMat, 0, 5);
-		})();
-	</script>
+      function Dijkstra(adjMat, startNode, endNode) {
+        var pred = [];
+        var estimate = [];
+        var visited = [];
+        var currentNode = startNode;
+
+        /* Setting the initial values */
+        for (var i = 0; i < adjMat.length; i++) {
+          visited[i] = false;
+          estimate[i] = Infinity;
+        }
+        estimate[startNode] = 0;
+        pred[startNode] = 0;
+
+
+        /* Dijkstra algorithm */
+        while (currentNode !== NO_NODE) {
+          if (currentNode === endNode) {
+            break;
+          }
+          visited[currentNode] = true;
+          for (var i = 0; i < adjMat.length; i++) {
+            if (currentNode === i || adjMat[currentNode][i] === NO_EDGE) {
+              continue;
+            }
+            if (estimate[i] > estimate[currentNode] + adjMat[currentNode][i]) {
+              estimate[i] = estimate[currentNode] + adjMat[currentNode][i];
+              pred[i] = currentNode;
+            }
+          }
+          currentNode = getSmallerNode(adjMat, estimate, visited);
+        }
+        console.log(estimate);
+        console.log(pred);
+      }
+
+      /* Calling the algorithm */
+      Dijkstra(adjMat, 0, 5);
+    })();
+  </script>
 </body>
 </html>
