@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Simple sample of a Dijkstra Algorithm JS implementation </title>
 </head>
 <body>
+
+  <div>
+    <p>Estimate: <span id="estimate"></span></p>
+    <p>Predecessors: <span id="path"></span></p>
+  </div>
+
   <script>
     (function() {
 
@@ -78,6 +85,8 @@
         }
         console.log(estimate);
         console.log(pred);
+        document.getElementById('path').innerHTML = pred;
+        document.getElementById('estimate').innerHTML = estimate;
       }
 
       /* Calling the algorithm */
